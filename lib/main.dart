@@ -2,19 +2,20 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:projeto_flutter/questao.dart';
+import 'package:projeto_flutter/resposta_button.dart';
 
 void main() {
   runApp(const PerguntaApp());
 }
 
 class _PerguntaAppState extends State<PerguntaApp>{
-    var _pergunstasSelecionadas = 0;
+    int _pergunstasSelecionadas = 0;
 
     void _responder(){
 
         setState(() {
           _pergunstasSelecionadas++;
-          print('pergunta respondida $_pergunstasSelecionadas');
         });
         
       
@@ -36,16 +37,10 @@ class _PerguntaAppState extends State<PerguntaApp>{
         ),
         body: Column(
           children: <Widget> [
-            Text(perguntas[_pergunstasSelecionadas]),
-             FilledButton(
-              onPressed: _responder,
-              child:  const Text('Resposta 1')), 
-              FilledButton(
-              onPressed: _responder,
-              child: const Text('Resposta 2')),
-              FilledButton(
-              onPressed: _responder,
-              child: const Text('Resposta 3'))
+            Questao(perguntas[_pergunstasSelecionadas]),
+             Respostabutton('Respota 1',_responder),
+             Respostabutton('Respota 1',_responder),
+             Respostabutton('Respota 1',_responder),
           ],
         ),
       ),
