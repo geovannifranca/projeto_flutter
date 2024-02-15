@@ -2,8 +2,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:projeto_flutter/questao.dart';
-import 'package:projeto_flutter/resposta_button.dart';
+import 'package:projeto_flutter/questionario.dart';
+import 'package:projeto_flutter/resultado.dart';
 
 void main() {
   runApp(const PerguntaApp());
@@ -12,20 +12,7 @@ void main() {
 class _PerguntaAppState extends State<PerguntaApp>{
     int _pergunstasSelecionadas = 0;
 
-    void _responder(){
-
-        setState(() {
-          _pergunstasSelecionadas++;
-        });
-        
-      
-    }
-
-    @override
-  Widget build(BuildContext context){
-
-
-    final  perguntas = [
+    final _perguntas = const [
       {
         'texto':'Qual é a sua cor favorita?',
         'respostas':['Preto','Vermelho','Verde','Branco']
@@ -37,8 +24,24 @@ class _PerguntaAppState extends State<PerguntaApp>{
         'respostas':['Maria','Joana','Leo','Pedro ']
       }];
 
-      List<String> respostas = perguntas[_pergunstasSelecionadas].cast()['respostas'];
+    void _responder(){
 
+        setState(() {
+          _pergunstasSelecionadas++;
+        });
+        
+      print(_pergunstasSelecionadas);
+    }
+
+  bool get temPerguntaSelecionada {
+    return _pergunstasSelecionadas < _perguntas.length;
+
+  }
+
+    @override
+  Widget build(BuildContext context){
+
+      List<String> respostas = temPerguntaSelecionada ? _perguntas[_pergunstasSelecionadas].cast()['respostas']:[];
       // for(String textoResp in respostas){
       //   widget.add(Respostabutton(textoResp, _responder));
       // }
@@ -50,14 +53,11 @@ class _PerguntaAppState extends State<PerguntaApp>{
         appBar: AppBar(
           title: const Text("Perguntas"),
         ),
-        body: Column(
-          children: <Widget> [
-            Questao(perguntas[_pergunstasSelecionadas]['texto'].toString()),
-             ...respostas.map((t)=> Respostabutton(t, _responder)).toList(),
-          ],
+        body: temPerguntaSelecionada ? 
+        Questionario(perguntas: _perguntas, pergunstasSelecionadas: _pergunstasSelecionadas, respostas: respostas, responder: _responder)
+        : Resultado()
         ),
-      ),
-    );
+      );
   }
 }
 
