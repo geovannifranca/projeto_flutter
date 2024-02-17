@@ -13,10 +13,10 @@ class Respostabutton extends StatelessWidget {
       margin: const EdgeInsets.all(1),
       child: ElevatedButton(
                 style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 149, 225, 248)),
+                  backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(158, 0, 153, 255)),
                 ),   
                 onPressed: onSelect,
-                child:  Text(textoButton,style: const TextStyle(color: Color.fromARGB(255, 255, 2, 2))),
+                child:  Text(textoButton,style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
               ),
     );
   }

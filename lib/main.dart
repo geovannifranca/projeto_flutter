@@ -10,7 +10,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
   int _pergunstasSelecionadas = 0;
   int _pontuacaoTotal = 0;
 
-  final _perguntas = const [
+  final _perguntas = [
     {
       'texto': 'Qual é a sua cor favorita?',
       'respostas': [
@@ -49,6 +49,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
     print(_pontuacaoTotal);
   }
 
+  void _reiniciarQuesionario(){
+    setState(() {
+      _pergunstasSelecionadas = 0;
+      _pontuacaoTotal = 0;
+    });
+  }
+
   bool get temPerguntaSelecionada {
     return _pergunstasSelecionadas < _perguntas.length;
   }
@@ -66,6 +73,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
       home: Scaffold(
           appBar: AppBar(
             title: const Text("Perguntas"),
+            backgroundColor: Colors.blue,
           ),
           body: temPerguntaSelecionada
               ? Questionario(
@@ -73,7 +81,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
                   pergunstasSelecionadas: _pergunstasSelecionadas,
                   respostas: respostas,
                   responder: _responder)
-              : Resultado(pontuacaoFinal: _pontuacaoTotal,)),
+              : Resultado(pontuacaoFinal: _pontuacaoTotal, quandoReiniciarQuesionario: _reiniciarQuesionario )),
     );
   }
 }
